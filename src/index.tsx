@@ -8,10 +8,11 @@ import {
 } from 'react-router-dom';
 
 
-import './index.css';
+import './index.scss';
 
-import App from './App';
-import Layout from './components/blocks/Layout'
+import Main from './components/pages/Main';
+import TradingPage from './components/pages/TradingPage';
+import Layout from './components/blocks/Layout';
 
 
 const root = ReactDOM.createRoot(
@@ -21,7 +22,8 @@ root.render(
   <BrowserRouter>
     <Layout>
       <Routes>
-        <Route path='/' element={<App />}/>
+        <Route path='/' element={<Main />}/>
+        <Route path='/trading' element={<TradingPage/>}/>
       </Routes>
     </Layout>
   </BrowserRouter>
