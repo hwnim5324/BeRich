@@ -1,9 +1,9 @@
 import React from 'react';
 import Chart from '../blocks/Chart';
 
-// import '../../styles/blocks/TopNavigator.scss';
+// import '../../styles/blocks/TradingPage.scss';
 
-const TradingPage = ( ) => {
+const TradingPage = ( ) : JSX.Element => {
     return(
         <Chart/>
     );

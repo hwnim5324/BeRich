@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import '../../styles/blocks/TopNavigator.scss';
 
-const TopNavigator = ( ) => {
+const TopNavigator = ( ) : JSX.Element => {
     return(
         <nav id='TopNavigator'>
             <ul>

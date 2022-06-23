@@ -2,8 +2,9 @@ import React from 'react';
 // import { Link } from "react-router-dom";
 
 import TopNavigator from './TopNavigator';
+import StockIndex from './StockIndex';
 
-const Layout = ( props : { children : React.ReactNode } ) => {
+const Layout = ( props : { children : React.ReactNode } ) : JSX.Element => {
     return(
         <div>
             <header>
@@ -13,7 +14,7 @@ const Layout = ( props : { children : React.ReactNode } ) => {
                 { props.children }
             </main>
             <footer>
-                <div>푸터</div>
+                <StockIndex />
             </footer>
         </div>
     );
