@@ -1,11 +1,16 @@
 import React from 'react';
-import Chart from '../blocks/Chart';
 
-// import '../../styles/blocks/TradingPage.scss';
+import Chart from '../blocks/Chart';
+import Trade from '../blocks/Trade';
+
+import '../../styles/pages/TradingPage.scss';
 
 const TradingPage = ( ) : JSX.Element => {
     return(
-        <Chart/>
+        <div id='TradingPage'>
+            <Chart />
+            <Trade />
+        </div>
     );
 }
 
