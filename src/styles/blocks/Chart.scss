@@ -12,7 +12,19 @@
     }
 
     line{
-        stroke: black;
-        stroke-width: 1;
+        stroke: #777777;
+        stroke-width: 2;
+    }
+
+    g{
+
+        line{
+            stroke: #999999;
+            stroke-width: 1;
+        }
+
+        text{
+            font-size: 14px;
+        }
     }
 }

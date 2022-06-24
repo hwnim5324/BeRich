@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface chartData {
-    date : number,
-    stck_hgpr : number,
-    stck_lwpr : number,
-    stck_oprc : number,
-    stck_clpr : number
+    date : number;
+    stck_hgpr : number;
+    stck_lwpr : number;
+    stck_oprc : number;
+    stck_clpr : number;
 };
 
 let exampleData = new Array<chartData>();
