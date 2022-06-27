@@ -11,12 +11,12 @@
         fill: black;
     }
 
-    line{
+    #axis{
         stroke: #777777;
         stroke-width: 2;
     }
 
-    g{
+    #baseline{
 
         line{
             stroke: #999999;
@@ -26,5 +26,13 @@
         text{
             font-size: 14px;
         }
+    }
+
+    #data{
+
+        line{
+            stroke-width: 2;
+        }
+        
     }
 }

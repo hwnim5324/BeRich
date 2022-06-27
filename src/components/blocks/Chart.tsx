@@ -1,4 +1,5 @@
 import React from 'react';
+import { scaleLinear} from "d3-scale";
 
 import useWindowSize from '../../hooks/useWindowSize';
 
@@ -45,14 +46,14 @@ const Chart = () : JSX.Element => {
     return(
         <div id='CandleStick'>
             <svg width={chartWidth} height={chartHeight}>
-                <line x1={0} y1={chartHeight-YLABELSIZE} x2={chartWidth-XLABELSIZE} y2={chartHeight-YLABELSIZE} />
-                <line x1={chartWidth-XLABELSIZE} y1={YLABELSIZE} x2={chartWidth-XLABELSIZE} y2={chartHeight-YLABELSIZE} />
+                <line id='axis' x1={0} y1={chartHeight-YLABELSIZE} x2={chartWidth-XLABELSIZE} y2={chartHeight-YLABELSIZE} />
+                <line id='axis' x1={chartWidth-XLABELSIZE} y1={YLABELSIZE} x2={chartWidth-XLABELSIZE} y2={chartHeight-YLABELSIZE} />
 
                 {Array.from({ length: yThicks }).map((_, index) => {
-                    let y = YLABELSIZE + index * (yAxisLength / yThicks);
+                    let y = YLABELSIZE + index * (yAxisLength / yThicks);   //기준선 그리기
                     let yValue = Math.round(dataYMax - index * (dataYRange / yThicks));
                         return (
-                            <g key={index}>
+                            <g id='baseline' key={index}>
                                 <line x1={0} x2={chartWidth - XLABELSIZE} y1={y} y2={y} />
                                 <text x={XLABELSIZE + xAxisLength} y={y + 5} textAnchor="end">
                                     {yValue.toLocaleString()} ￦
@@ -63,24 +64,34 @@ const Chart = () : JSX.Element => {
                 } 
 
                 {
-
-                    exampleData.map(function(d, index) {
+                    exampleData.map(function(d, index) {    //막대 그리기
                         let x = index * barPlotWidth;
-                        const yRatio = (dataYMax - dataYMin);
-                        console.log(yAxisLength * ((dataYMax - d.stck_clpr) / yRatio) + YLABELSIZE)
+
+                        const MAX = d.stck_oprc > d.stck_clpr ? d.stck_oprc : d.stck_clpr;
+                        const MIN = d.stck_oprc > d.stck_clpr ? d.stck_clpr : d.stck_oprc;
+
+                        const SCALEY = scaleLinear()
+                            .domain([dataYMin, dataYMax])
+                            .range([0, yAxisLength]);
+                        const FILL = d.stck_clpr > d.stck_oprc ? "#c21524" : "#32b84f";
+
                         return (
-                            <g key={ index }>
-                                <rect fill={d.stck_clpr > d.stck_oprc ? "red" : "green"}
-                                    x = {x + 2.5}
-                                    y={ d.stck_clpr > d.stck_oprc ? yAxisLength * ((dataYMax - d.stck_clpr) / yRatio) + YLABELSIZE : yAxisLength * ((dataYMax - d.stck_oprc) / yRatio) + YLABELSIZE }
-                                    width={barPlotWidth - 5} 
-                                    height={ d.stck_clpr > d.stck_oprc ? yAxisLength * ((dataYMax - d.stck_oprc) / yRatio) + YLABELSIZE : yAxisLength * ((dataYMax - d.stck_clpr) / yRatio) + YLABELSIZE} />
+                            <g id='data' key={ index }>
+                                <line
+                                    x1={x + ((barPlotWidth-5)/2)}
+                                    y1={yAxisLength - SCALEY(d.stck_lwpr) + YLABELSIZE}
+                                    x2={x + ((barPlotWidth-5)/2)}
+                                    y2={yAxisLength - SCALEY(d.stck_hgpr) + YLABELSIZE}
+                                    stroke={FILL} />
+                                <rect fill={FILL}
+                                    x = {x}
+                                    y={ yAxisLength - SCALEY(MAX) + YLABELSIZE }
+                                    width={barPlotWidth - 5} //5 = 막대간 패딩.
+                                    height={ SCALEY(MAX) - SCALEY(MIN)} />
                             </g>
                         );
                     })
                 }
-
-
             </svg>
         </div>
     );
@@ -88,30 +99,3 @@ const Chart = () : JSX.Element => {
 
 
 export default Chart;
-
-
-
-                        // let yRatio = 0;
-                        // const yRatioGenerator = (open: number, close: number) => {
-                        //     if (open > close) {
-                        //     yRatio = (open - dataYMin) / dataYRange;
-                        //     if (yRatio > 0) {
-                        //         return yRatio;
-                        //     } else return (yRatio = open / dataYRange / 2);
-                        //     } else {
-                        //     yRatio = (close - dataYMin) / dataYRange;
-                        //     if (yRatio > 0) {
-                        //         return yRatio;
-                        //     } else return (yRatio = open / dataYRange / 2);
-                        //     }
-                        // };
-                        // let yHighRatio = 0;
-                        // const yHighRatioGenerator = (high: number) => {
-                        //     yHighRatio = (high - dataYMin) / dataYRange;
-                        //     if (yHighRatio > 0) {
-                        //     return yHighRatio;
-                        //     } else return (yRatio = high / dataYRange / 2);
-                        // };
-
-                        // const yOpenClose = 50 + (1 - yRatioGenerator(d.stck_oprc, d.stck_clpr)) * yAxisLength;
-                        // const yHighLow = 50 + (1 - yHighRatioGenerator(d.stck_hgpr)) * yAxisLength;
