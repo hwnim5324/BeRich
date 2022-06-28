@@ -28,7 +28,7 @@ const TopNavigator = ( ) : JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to=''>
+                    <Link to='/login'>
                         <span>로그인</span>
                     </Link>
                 </li>

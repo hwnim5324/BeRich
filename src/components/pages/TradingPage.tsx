@@ -7,10 +7,10 @@ import '../../styles/pages/TradingPage.scss';
 
 const TradingPage = ( ) : JSX.Element => {
     return(
-        <div id='TradingPage'>
+        <section id='TradingPage'>
             <Chart />
             <Trade />
-        </div>
+        </section>
     );
 }
 

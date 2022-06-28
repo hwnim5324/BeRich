@@ -12,6 +12,7 @@ import './index.scss';
 
 import Main from './components/pages/Main';
 import TradingPage from './components/pages/TradingPage';
+import LogIn from './components/pages/LogIn';
 import Layout from './components/blocks/Layout';
 
 
@@ -24,6 +25,7 @@ root.render(
       <Routes>
         <Route path='/' element={<Main />}/>
         <Route path='/trading' element={<TradingPage/>}/>
+        <Route path='/login' element={<LogIn/>}/>
       </Routes>
     </Layout>
   </BrowserRouter>
