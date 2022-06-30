@@ -1,6 +1,9 @@
 import React from 'react';
 
+import Input from '../blocks/Input';
+
 import '../../styles/pages/LogIn.scss';
+
 
 
 
@@ -8,15 +11,8 @@ const LogIn = ( ) : JSX.Element => {
     return(
         <section id='login'>
             <div id='login-border'>
-                <div id='login-input'>
-                    <label>아이디</label>
-                    <input type='text' />
-                </div>
-                <div id='login-input'>
-                    <label>비밀번호</label>
-                    <input type='password' />
-                    
-                </div>
+                <Input label='아이디' id='id' type='text' />
+                <Input label='비밀번호' id='pw' type='password'/>
                 <button id='login-submit'>로그인</button>
                 <p>계정이 없으신가요? <span>회원가입</span></p>
             </div>

@@ -1,0 +1,43 @@
+#login{
+
+    &-input{
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        margin: 30px 0 30px 0;
+
+        input{
+            width: 75%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font: inherit;
+            color: #000;
+            background-color: transparent;
+            outline: 1px solid #000;
+
+            &:focus{
+                outline: 1px solid cornflowerblue;
+            }
+
+            &:focus+label, &:valid+label{
+                transform: translate(10px, -14px) scale(.8);
+                color: cornflowerblue;
+                padding-inline: 5px;
+                background-color: #fff;
+            }
+        }
+
+        label{
+            position: absolute;
+            top: 0;
+            left: 40px;
+            transform: translate(10px,10px);
+            transition: transform .25s;
+            color: gray;
+        }
+
+
+    }
+}
