@@ -14,6 +14,7 @@ import Main from './components/pages/Main';
 import TradingPage from './components/pages/TradingPage';
 import LogIn from './components/pages/LogIn';
 import Layout from './components/blocks/Layout';
+import NotFound from './components/pages/NotFound';
 
 
 const root = ReactDOM.createRoot(
@@ -24,8 +25,9 @@ root.render(
     <Layout>
       <Routes>
         <Route path='/' element={<Main />}/>
-        <Route path='/trading' element={<TradingPage/>}/>
+        <Route path='/trading/*' element={<TradingPage/>}/>
         <Route path='/login' element={<LogIn/>}/>
+        <Route path='*' element={<NotFound />}/>
       </Routes>
     </Layout>
   </BrowserRouter>
