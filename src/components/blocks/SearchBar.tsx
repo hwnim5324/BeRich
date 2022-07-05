@@ -6,14 +6,14 @@ import '../../styles/blocks/SearchBar.scss';
 
 const SearchBar = ( ) : JSX.Element => {
 
-    const [keyword, setKeyword] = useState('');
+    const [KeyWord, setKeyWord] = useState('');
     const searchStore = useContext(SearchStore);
-    const { doSearch, getKeyword } = searchStore;
+    const { setKeyword, setSearching } = searchStore;
 
     return(
         <div id='SearchBar'>
-            <input type='text' id='Keyword' onChange={(e) => {setKeyword(e.target.value);}} />
-            <button onClick={()=>{doSearch(keyword)}}>검색</button>
+            <input type='text' id='Keyword' onChange={(e) => {setKeyWord(e.target.value);}} />
+            <button onClick={()=>{setKeyword(KeyWord); setSearching(true);}}>검색</button>
         </div>
     );
 }

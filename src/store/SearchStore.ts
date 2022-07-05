@@ -6,6 +6,9 @@ class SearchStore{
     @observable
     keyword = '';
 
+    @observable
+    searching = true;
+
     @action
     setKeyword( keyword : string ){
         this.keyword = keyword;
@@ -17,10 +20,15 @@ class SearchStore{
     }
 
     @action
-    doSearch( keyword : string ){
-        this.setKeyword( keyword );
-        console.log(this.keyword);
+    setSearching( searching : boolean ){
+        this.searching = searching;
     }
+
+    @action
+    getSearching(){
+        return this.searching;
+    }
+    
 
 }
 
