@@ -9,7 +9,7 @@ const TopNavigator = ( ) : JSX.Element => {
             <ul>
                 <li>
                     <Link to='/'>
-                        <span>로고</span>
+                        <span id='logo'>BeRich</span>
                     </Link>
                 </li>
                 <li>
@@ -18,7 +18,7 @@ const TopNavigator = ( ) : JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/Trading'>
+                    <Link to='/trading'>
                         <span>거래소</span>
                     </Link>
                 </li>

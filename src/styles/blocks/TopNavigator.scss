@@ -1,8 +1,19 @@
+@font-face {
+    font-family: 'LeferiPoint-WhiteObliqueA';
+    src: url('../../assets/fonts/LeferiPointWhiteOblique.ttf');
+}
+
 #TopNavigator{
     padding: 20px 40px 0px 40px;
     margin: 0px 74px 0px 74px;
 
     background-color: #fff;
+
+    #logo{
+        font-family: 'LeferiPoint-WhiteObliqueA';
+        font-weight: bold;
+        font-size: 24px;
+    }
 
     ul{
         font-size: 18px;
