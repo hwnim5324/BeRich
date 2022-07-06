@@ -13,6 +13,7 @@ const Trade = ( ) : JSX.Element => {
         <div id='Trade'>
             <SearchBar />
             <Trading>
+                <TradeNavigator />
                 <Routes>
                     <Route path='buy' element={<Buy />} />
                     <Route path='sell' element={<Sell />} />
@@ -29,6 +30,17 @@ const Trading = ( props : { children : React.ReactNode } ) : JSX.Element => {
         <>
             {props.children}
         </>
+    );
+}
+
+const TradeNavigator = () : JSX.Element => {
+    return (
+        <ul>
+            <li>매수</li>
+            <li>매도</li>
+            <li>정정/취소</li>
+            <li>체결/예약</li>
+        </ul>
     );
 }
 
