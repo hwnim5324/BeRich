@@ -12,6 +12,8 @@ import './index.scss';
 
 import Main from './components/pages/Main';
 import TradingPage from './components/pages/TradingPage';
+import Assets from './components/pages/Assets'
+import Watching from './components/pages/Watching';
 import LogIn from './components/pages/LogIn';
 import SignUp from './components/pages/SignUp';
 import Layout from './components/blocks/Layout';
@@ -27,6 +29,8 @@ root.render(
       <Routes>
         <Route path='/' element={<Main />}/>
         <Route path='/trading/*' element={<TradingPage/>}/>
+        <Route path='/assets' element={<Assets />}/>
+        <Route path='/watching' element={<Watching />} />
         <Route path='/login' element={<LogIn/>}/>
         <Route path='/signup' element={<SignUp />}/>
         <Route path='*' element={<NotFound />}/>

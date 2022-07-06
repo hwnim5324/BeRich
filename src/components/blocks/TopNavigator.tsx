@@ -13,7 +13,7 @@ const TopNavigator = ( ) : JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to=''>
+                    <Link to='/assets'>
                         <span>자산</span>
                     </Link>
                 </li>
@@ -23,7 +23,7 @@ const TopNavigator = ( ) : JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to=''>
+                    <Link to='/watching'>
                         <span>관심목록</span>
                     </Link>
                 </li>
