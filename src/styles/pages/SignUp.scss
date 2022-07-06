@@ -1,0 +1,28 @@
+#signup{
+
+    margin-left: 100px;
+
+    #title{
+        font-size: 24px;
+        margin-bottom: 60px;
+    }
+
+    button{
+        font-size: 18px;
+        font-weight: bold;
+
+        width: 340px;
+        height: 64px;
+        
+        margin: 40px 0 40px 0;
+
+        background-color: black;
+        color: white;
+
+        &:hover{
+            cursor: pointer;
+            background-color: #444444;
+            // 나중에 바꾸기
+        }
+    }
+}
