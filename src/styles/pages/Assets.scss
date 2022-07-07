@@ -1,0 +1,96 @@
+#assets{
+    font-size: 22px;
+    width: 75%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: auto;
+    margin-bottom: 120px;
+
+    #total{
+        width: 100%;
+
+        #title{
+            font-size: 28px;
+            text-align: center;
+        }
+        #sum{
+            font-size: 56px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+            li{
+                display: flex;
+                justify-content: space-between;
+                padding: 0 50px 0 50px;
+                margin: 15px 0 15px 0;
+            }
+        }
+    }
+
+    #pnl{
+        width: 100%;
+
+        #title{
+            font-size: 28px;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            li{
+                display: flex;
+                justify-content: space-between;
+                padding: 0 50px 0 50px;
+                margin: 15px 0 15px 0;
+            }
+        }
+    }
+
+    #holdings{
+        width: 100%;
+
+        #title{
+            font-size: 28px;
+        }
+
+        table{
+            width: calc( 100% - 100px );
+            margin: auto;
+            border-collapse: collapse;
+
+
+            thead{
+                background-color: #333;
+                color: #fff;
+            }
+            
+            th{
+                text-align: center;
+                height: 60px;
+                font-weight: 200;    
+            }
+
+            tbody{
+                tr:nth-child(even){
+                    background-color: #F4F4F4;
+                }
+            }
+
+            td{
+                text-align: right;
+                height: 50px;
+                padding: 0 20px 0 20px;
+
+                &:first-child{
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
