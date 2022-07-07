@@ -7,6 +7,29 @@
         margin-bottom: 60px;
     }
 
+    &-input{
+        label{
+            font-size: 18px;
+            display: block;
+        }
+    
+        input{
+            width: 360px;
+            height: 40px;
+    
+            font-size: 18px;
+            padding-left: 12px;
+            margin: 20px 0 20px 0;
+    
+            border: none;
+            border-bottom: 2px solid black;
+    
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
     button{
         font-size: 18px;
         font-weight: bold;
