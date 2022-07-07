@@ -73,7 +73,7 @@ const Chart = () : JSX.Element => {
                         const SCALEY = scaleLinear()
                             .domain([dataYMin, dataYMax])
                             .range([0, yAxisLength]);
-                        const FILL = d.stck_clpr > d.stck_oprc ? "#c21524" : "#32b84f";
+                        const FILL = d.stck_clpr > d.stck_oprc ? "#E0585A" : "#597BE4";
 
                         return (
                             <g id='data' key={ index }>
