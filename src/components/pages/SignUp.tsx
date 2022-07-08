@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import axios from "axios";
 
 import '../../styles/pages/SignUp.scss';
 
@@ -29,14 +30,26 @@ const SignUp = () : JSX.Element => {
                     <label>비밀번호 확인</label>
                     <input type='password' onChange={(e)=>{setCheck(e.target.value);}}/>
                 </div>
-                <button onClick={signup}>회원가입</button>
+                <button onClick={()=>{signup({name,id,pw})}}>회원가입</button>
             </div>
         </section>
     );
 }
 
-function signup(){
-
+interface user{
+    name: string,
+    id: string,
+    pw: string
 }
 
+function signup( user : user){
+    axios({
+        url: 'http://localhost:8080/user/signup',
+        method: 'post',
+        data: user
+    }).then(response => console.log(response))
+    .catch(err=>console.log(err));
+    
+}
+// http://localhost:8080/user/signup
 export default SignUp;
