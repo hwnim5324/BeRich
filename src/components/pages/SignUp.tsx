@@ -3,12 +3,19 @@ import axios from "axios";
 
 import '../../styles/pages/SignUp.scss';
 
+interface user{
+    name: string,
+    id: string,
+    password: string
+}
+
 const SignUp = () : JSX.Element => {
 
     const [name, setName] = useState('');
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [check, setCheck] = useState('');
+    let user : user;
 
     return (
         <section>
@@ -30,16 +37,11 @@ const SignUp = () : JSX.Element => {
                     <label>비밀번호 확인</label>
                     <input type='password' onChange={(e)=>{setCheck(e.target.value);}}/>
                 </div>
-                <button onClick={()=>{signup({name,id,pw})}}>회원가입</button>
+                
+                <button onClick={()=>{signup({id:id, name:name, password:pw})}}>회원가입</button>
             </div>
         </section>
     );
-}
-
-interface user{
-    name: string,
-    id: string,
-    pw: string
 }
 
 function signup( user : user){
@@ -51,5 +53,5 @@ function signup( user : user){
     .catch(err=>console.log(err));
     
 }
-// http://localhost:8080/user/signup
+
 export default SignUp;
