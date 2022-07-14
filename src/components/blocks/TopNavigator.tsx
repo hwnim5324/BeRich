@@ -1,9 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from "react-router-dom";
+
+import LogInStore from '../../store/LogInStore';
 
 import '../../styles/blocks/TopNavigator.scss';
 
 const TopNavigator = ( ) : JSX.Element => {
+
+    const LoginStore = useContext(LogInStore);
+
     return(
         <nav id='TopNavigator'>
             <ul>
@@ -28,9 +33,13 @@ const TopNavigator = ( ) : JSX.Element => {
                     </Link>
                 </li>
                 <li>
+                    {LoginStore.isLogin?
+                    <Link to='/mypage'>
+                        <span>마이페이지</span>
+                    </Link>:
                     <Link to='/login'>
                         <span>로그인</span>
-                    </Link>
+                    </Link>}
                 </li>
             </ul>
         </nav>
