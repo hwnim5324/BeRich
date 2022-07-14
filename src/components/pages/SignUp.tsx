@@ -1,11 +1,12 @@
 import React, {useState} from "react";
-import axios from "axios";
+import Axios from "../../hooks/Axios";
+import { Router } from "react-router-dom";
 
 import '../../styles/pages/SignUp.scss';
 
 interface user{
     name: string,
-    id: string,
+    userId: string,
     password: string
 }
 
@@ -15,7 +16,8 @@ const SignUp = () : JSX.Element => {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [check, setCheck] = useState('');
-    let user : user;
+
+    const DIFFERENT_PW = '비밀번호와 확인용 비밀번호가 일치하지 않습니다.';
 
     return (
         <section>
@@ -37,21 +39,31 @@ const SignUp = () : JSX.Element => {
                     <label>비밀번호 확인</label>
                     <input type='password' onChange={(e)=>{setCheck(e.target.value);}}/>
                 </div>
-                
-                <button onClick={()=>{signup({id:id, name:name, password:pw})}}>회원가입</button>
+                <button onClick={()=>{isValidPw(pw,check) ? signup(id,pw,name) : alert(DIFFERENT_PW)}}>회원가입</button>
             </div>
         </section>
     );
 }
 
-function signup( user : user){
-    axios({
-        url: 'http://localhost:8080/user/signup',
-        method: 'post',
-        data: user
-    }).then(response => console.log(response))
-    .catch(err=>console.log(err));
-    
+
+
+function isValidPw( pw: string, check: string){
+    return pw!==check ? false : true;
+}
+
+function signup( id: string, pw: string, name: string ){
+    let user : user = {
+        userId : id,
+        password : pw,
+        name: name
+    }
+    Axios.post('/signup',user)
+        .then((res)=>{
+            console.log(res);
+            document.location.href='/login';
+        }).catch((err)=>{
+            console.log(err);
+        });
 }
 
 export default SignUp;
