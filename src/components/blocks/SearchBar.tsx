@@ -4,6 +4,8 @@ import React, {useContext, useState } from 'react';
 
 import '../../styles/blocks/SearchBar.scss';
 
+
+
 const SearchBar = ( ) : JSX.Element => {
 
     const [KeyWord, setKeyWord] = useState('');
