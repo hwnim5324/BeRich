@@ -23,7 +23,7 @@ const TopNavigator = ( ) : JSX.Element => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/trading'>
+                    <Link to='/trading/buy'>
                         <span>거래소</span>
                     </Link>
                 </li>

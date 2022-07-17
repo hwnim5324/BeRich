@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Link, NavLink } from "react-router-dom";
 
+import LogInStore from '../../store/LogInStore';
 import SearchBar from './SearchBar';
 
 import '../../styles/blocks/Trade.scss';
@@ -46,7 +47,10 @@ const TradeNavigator = () : JSX.Element => {
 }
 
 const Buy = () : JSX.Element => {
-    return (
+
+    const LoginStore = useContext(LogInStore);
+
+    return LoginStore.isLogin?(
         <div id='buy'>
             <ul>
                 <li><NavLink to=''>지정가</NavLink></li>
@@ -62,6 +66,11 @@ const Buy = () : JSX.Element => {
                 <button>현금매수</button>
             </div>
         </div>
+    ):(
+        <>
+            {alert("로그인 후 이용해주세요.")}
+            {document.location.href='/login'}
+        </>
     );
 }
 
