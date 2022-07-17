@@ -43,7 +43,7 @@ const Assets = () : JSX.Element => {
         return(
             <>
                 {alert("로그인 후 이용해주세요.")}
-                {document.location.href='/'}
+                {document.location.href='/login'}
             </>
         )
     }else{
