@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import LogInStore from '../../store/LogInStore';
 import SearchBar from './SearchBar';
+import useWindowSize from '../../hooks/useWindowSize';
 
 import '../../styles/blocks/Trade.scss';
 
@@ -55,21 +56,23 @@ const Buy = () : JSX.Element => {
     const [price,setPrice] = useState(0);
     const [number,setNumber] = useState(0);
 
+    const divHeight = useWindowSize().height-153-130;
+    const divWidth = useWindowSize().width*0.3
+
     return LoginStore.isLogin?(
-        <div id='buy'>
-            <ul>
-                <li><button id={orderType==='market'?'clicked':'unclicked'} onClick={()=>{setOrderType('market');}}>지정가</button></li>
-                <li><button id={orderType==='pending'?'clicked':'unclicked'} onClick={()=>{setOrderType('pending');}}>시장가</button></li>
+        <div id='buy' style={{height: divHeight}}>
+            <div style={{width: divWidth}} id='ordertype'>
+                <button id={orderType==='market'?'clicked':'unclicked'} onClick={()=>{setOrderType('market');}}>지정가</button>
+                <button id={orderType==='pending'?'clicked':'unclicked'} onClick={()=>{setOrderType('pending');}}>시장가</button>
                 {/* 링크가 아니라 state에 따른 내부 컴포넌트 변경으로 바꾸기. */}
-            </ul>
+            </div>
             <div id='number'><input type='number' onChange={(e)=>{setPrice(Number(e.target.value));}} />원</div>
             <div id='number'><input type='number' onChange={(e)=>{setNumber(Number(e.target.value));}} />주</div>
-            <ul><li>현금최대가능<span>주</span></li></ul>
-            <ul><li>미수최대가능<span>주</span></li></ul>
-            <div>
-                <p>주문금액</p>
-                <button>예약매수</button>
-                <button>현금매수</button>
+            <ul id='canBuy'><li><p>현금최대가능<span>{calcCanBuy(5000000,price)} 주</span></p></li></ul>
+            <p id='resultPrice' style={{width: divWidth-60}}>주문금액<span>{addComma(calcOrder(5000000, price, number))}원</span></p>
+            <div id='order' style={{width: divWidth}}>
+                <button id='black'>예약매수</button>
+                <button id='red'>현금매수</button>
             </div>
         </div>
     ):(
@@ -91,8 +94,8 @@ const Sell = () : JSX.Element => {
             <div><input type='number' />원</div>
             <div><input type='number' />주</div>
             <ul><li>매도가능</li><li>주</li></ul>
-            <div >
-                <p>주문금액</p>
+            <div id='order'>
+                <p id='resultPrice'>주문금액</p>
                 <button>예약매도</button>
                 <button>현금매도</button>
             </div>
@@ -114,6 +117,23 @@ const OrderList = () : JSX.Element => {
             orderlist
         </div>
     );
+}
+
+function calcCanBuy( deposit: number, price: number ){
+    return isFinite(deposit/price) ? Math.floor(deposit/price):'-';
+}
+
+function calcOrder( deposit: number, price: number, number: number ){
+    if(calcCanBuy(deposit, price)==='-'){
+        return 0;
+    }else{
+        const buy = calcCanBuy(deposit, price)<number?Number(calcCanBuy(deposit, price)):number;
+        return buy*price;
+    }
+}
+
+function addComma( num: number ){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 export default Trade;

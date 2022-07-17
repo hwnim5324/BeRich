@@ -62,17 +62,18 @@
 }
 
 #buy{
-    ul{
-        list-style: none;
-        display: flex;
-        justify-content: space-around;
-
-        margin-bottom: 50px;
-
-        li{
+    div{
+        &#ordertype{
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+    
+            margin-bottom: 50px;
+            padding: 0;
+    
             button{
-                width: 140px;
-                height: 46px;
+                width: 40%;
+                height: 48px;
                 border-radius: 50px;
                 border: none;
                 font-size: 18px;
@@ -127,5 +128,79 @@
         }
     }
 
+    ul{
+        &#canBuy{
+            list-style: none;
+            padding-left: 50%;
+            margin: 50px 0 50px 0;
+
+            p{
+                display: inline-block;
+                width: 85%;
+                margin: 0;
+
+                span{
+                    float: right;
+                }
+            }
+        }
+    }
+    
+
+        #resultPrice{
+            width: 80%;
+            padding: 0 30px 0 30px;
+
+            position: absolute;
+            bottom: 160px;
+
+            font-size: 24px;
+
+            span{
+                float: right;
+            }
+        }
+
+        #order{
+            position: absolute;
+            bottom: 100px;
+
+            display: inline-flex;
+            justify-content: space-around;
+
+            button{
+                font-size: 18px;
+                font-family: 'Noto Sans KR';
+                color: #fff;
+
+                border: none;
+                border-radius: 6px;
+
+                cursor: pointer;
+
+                &#black{
+                    width: 30%;
+                    height: 48px;
+
+                    background-color: #000;
+
+                    &:hover{
+                        background-color: rgb(43, 43, 43);
+                    }
+                }
+
+                &#red{
+                    width: 60%;
+                    height: 48px;
+
+                    background-color: #E0585A;
+
+                    &:hover{
+                        background-color: #db4345;
+                    }
+                }
+                
+            }
+        }
 
 }
