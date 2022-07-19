@@ -61,7 +61,7 @@
     }
 }
 
-#buy{
+#buy, #sell{
     div{
         &#ordertype{
             list-style: none;
@@ -199,8 +199,21 @@
                         background-color: #db4345;
                     }
                 }
+
+                &#blue{
+                    width: 60%;
+                    height: 48px;
+
+                    background-color: #597BE4;
+
+                    &:hover{
+                        background-color: #3c65e0;
+                    }
+                }
                 
             }
         }
 
 }
+
+

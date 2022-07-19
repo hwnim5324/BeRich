@@ -84,22 +84,37 @@ const Buy = () : JSX.Element => {
 }
 
 const Sell = () : JSX.Element => {
-    return (
-        <div id='sell'>
-            <ul>
-                <li><button>지정가</button></li>
-                <li><button>시장가</button></li>
+
+    const LoginStore = useContext(LogInStore);
+    const [orderType,setOrderType] = useState('market');
+    const [holds, setHolds] = useState(0);
+    const [price,setPrice] = useState(0);
+    const [number,setNumber] = useState(0);
+
+    const divHeight = useWindowSize().height-153-130;
+    const divWidth = useWindowSize().width*0.3
+
+    return LoginStore.isLogin?(
+        <div id='sell' style={{height: divHeight}}>
+            <div style={{width: divWidth}} id='ordertype'>
+                <button id={orderType==='market'?'clicked':'unclicked'} onClick={()=>{setOrderType('market');}}>지정가</button>
+                <button id={orderType==='pending'?'clicked':'unclicked'} onClick={()=>{setOrderType('pending');}}>시장가</button>
                 {/* 링크가 아니라 state에 따른 내부 컴포넌트 변경으로 바꾸기. */}
-            </ul>
-            <div><input type='number' />원</div>
-            <div><input type='number' />주</div>
-            <ul><li>매도가능</li><li>주</li></ul>
-            <div id='order'>
-                <p id='resultPrice'>주문금액</p>
-                <button>예약매도</button>
-                <button>현금매도</button>
+            </div>
+            <div id='number'><input type='number' onChange={(e)=>{setPrice(Number(e.target.value));}} />원</div>
+            <div id='number'><input type='number' onChange={(e)=>{setNumber(Number(e.target.value));}} />주</div>
+            <ul id='canBuy'><li><p>매도가능<span>{holds} 주</span></p></li></ul>
+            <p id='resultPrice' style={{width: divWidth-60}}>주문금액<span>{addComma(calcOrder(5000000, price, number))}원</span></p>
+            <div id='order' style={{width: divWidth}}>
+                <button id='black'>예약매도</button>
+                <button id='blue'>현금매도</button>
             </div>
         </div>
+    ):(
+        <>
+            {alert("로그인 후 이용해주세요.")}
+            {document.location.href='/login'}
+        </>
     );
 }
 
