@@ -1,5 +1,4 @@
-import React, {useContext, useEffect, useState} from "react"
-import { json } from "stream/consumers";
+import React, {useContext, useEffect, useState} from "react";
 
 import Axios from "../../hooks/Axios";
 import LogInStore from "../../store/LogInStore";
@@ -25,6 +24,10 @@ const Assets = () : JSX.Element => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState<Data>({ deposit: 0, stocks: [] });
 
+    const [Total, setTotal] =useState(0);
+    const [marketValue, setMarketValue] = useState(0);
+    const [purchase, setPurchase] = useState(0);
+
     useEffect(()=>{
         if(LoginStore.isLogin){
             Axios.get(`/assets?userCode=${LoginStore.userCode}`)
@@ -39,6 +42,11 @@ const Assets = () : JSX.Element => {
         }
     },[]);
 
+    // setPurchase(data.stocks.reduce((sum, item)=>{
+    //     return sum + item.price;
+    // },0));
+    // setTotal(data.deposit + marketValue)
+
     if(!LoginStore.isLogin){ 
         return(
             <>
@@ -51,33 +59,31 @@ const Assets = () : JSX.Element => {
             <section id="assets">
                 <div id="total">
                     <p id="title">총자산</p>
-                    <p id="sum">원</p>
+                    <p id="sum">{addComma(Total)}원</p>
                     <ul>
                         <li><span>예수금</span><span>{addComma(data.deposit)}원</span></li>
                     </ul>
                 </div>
                 <div id="pnl">
-                    <p id="title">평가손익</p>
+                    <p id="title">평가손익<span>%</span></p>
+                    {/* 수정필요. */}
                     <ul>
                         <li>
                             <span>총평가금액</span>
-                            <span>원</span>
+                            {/* deposit + marketValue */}
+                            <span>{addComma(Total)}원</span>
                         </li>
                         <li>
                             <span>평가금액</span>
-                            <span>원</span>
+                            <span>{addComma(marketValue)}원</span>
                         </li>
                         <li>
                             <span>예수금</span>
-                            <span>원</span>
-                        </li>
-                        <li>
-                            <span>추정자산</span>
-                            <span>원</span>
+                            <span>{addComma(data.deposit)}원</span>
                         </li>
                         <li>
                             <span>매입금액</span>
-                            <span>원</span>
+                            <span>{addComma(purchase)}원</span>
                         </li>
                     </ul>
                 </div>
@@ -98,9 +104,9 @@ const Assets = () : JSX.Element => {
                                 return(
                                     <tr key={idx}>
                                         <td>{item.stock}</td>
-                                        <td>{item.holds}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.nowPrice}</td>
+                                        <td>{addComma(item.holds)}</td>
+                                        <td>{addComma(item.price)}</td>
+                                        <td>{addComma(item.nowPrice)}</td>
                                         <td>{calcYield(item.nowPrice, item.price)}</td>
                                     </tr>
                                 );
