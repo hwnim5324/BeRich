@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { scaleLinear} from "d3-scale";
 
 import Axios from '../../hooks/Axios';
@@ -16,22 +16,19 @@ interface chartData {
     stck_clpr : number
 };
 
-let exampleData = new Array<chartData>();
-exampleData = [
-    {date : 20220620, stck_hgpr : 59900, stck_lwpr : 58100, stck_oprc : 59800, stck_clpr : 58700},
-    {date : 20220621, stck_hgpr : 59200, stck_lwpr : 58200, stck_oprc : 58700, stck_clpr : 58500},
-    {date : 20220622, stck_hgpr : 59100, stck_lwpr : 57600, stck_oprc : 59000, stck_clpr : 57600}
-];
-
-
 const Chart = () : JSX.Element => {
     
+    const now = new Date();
+
+    const [stockName, setStockName] = useState('삼성전자');
+    const [endDate, setEndDate] = useState(getEndDate());
+    const [startDate, setStartDate] = useState(getStartDate(60));
+    const [Data, setData] = useState<Array<chartData>>([]);
     useEffect(()=>{
-        Axios.get(`/stocks?isnm=삼성전자&startDate=${getDate(31)}&endDate=${getDate(0)}`)
+        Axios.get(`/stocks?isnm=${stockName}&startDate=${startDate}&endDate=${endDate}`)
         .then((res)=>{
             console.log(res);
-            // setData(res.data);
-
+            setData(transformData(res.data));
         }).catch((err)=>{
             console.log(err);
         });
@@ -48,12 +45,12 @@ const Chart = () : JSX.Element => {
     const xAxisLength = chartWidth - XLABELSIZE;
     const yAxisLength = chartHeight - 2 * YLABELSIZE;
 
-    const dataYMax = Math.max.apply(Math, exampleData.map(function(d) { return d.stck_hgpr; }))
-    const dataYMin = Math.min.apply(Math, exampleData.map(function(d) { return d.stck_lwpr; }))
+    const dataYMax = Math.max.apply(Math, Data.map(function(d) { return d.stck_hgpr; }))
+    const dataYMin = Math.min.apply(Math, Data.map(function(d) { return d.stck_lwpr; }))
 
     const dataYRange = dataYMax - dataYMin;
     const yThicks = 9;
-    const barPlotWidth = (chartWidth - XLABELSIZE) /exampleData.length;
+    const barPlotWidth = (chartWidth - XLABELSIZE) /Data.length;
     
     //후에 차트 라인 그리는 블럭과 캔들 그리는 블럭 분리 필요.
 
@@ -78,7 +75,7 @@ const Chart = () : JSX.Element => {
                 } 
 
                 {
-                    exampleData.map(function(d, index) {    //막대 그리기
+                    Data.map(function(d, index) {    //막대 그리기
                         let x = index * barPlotWidth;
 
                         const MAX = d.stck_oprc > d.stck_clpr ? d.stck_oprc : d.stck_clpr;
@@ -111,18 +108,58 @@ const Chart = () : JSX.Element => {
     );
 }
 
-function getDate( num: number ){
-    let now = new Date();
-    let date = new Date(now.setDate(now.getDate() - num));
-    let year = date.getFullYear();
-    let month = ("0" + (1 + date.getMonth())).slice(-2);
-    let day = ("0" + date.getDate()).slice(-2);
+interface originData{
+    stck_bsop_date: number,
+    stck_hgpr: number,
+    stck_clpr: number,
+    stck_lwpr: number,
+    stck_oprc: number,
+    acml_tr_pbmn: string,
+    acml_vol: string,
+    prdy_vrss_sign: string,
+    revl_issu_reas: string,
+    prtt_rate: string,
+    prdy_vrss: string,
+    mod_yn: string,
+    flng_cls_code: string,
+    
+}
 
+function getStartDate( num: number ){
+    const now = new Date();
+    const date = new Date(now.setDate(now.getDate() - num));
+    const year = date.getFullYear();
+    const month = ("0" + (1 + date.getMonth())).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
     return year + month + day;
 }
 
-function transformData( data: Array<JSON> ){
+function getEndDate(){
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ("0" + (1 + date.getMonth())).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    return year + month + day;
+}
+
+function transformData( data: Array<originData> ){
     
+    let result: Array<chartData> = data.map((item)=>{
+        let aDay: chartData = {
+            date: item.stck_bsop_date,
+            stck_hgpr : item.stck_hgpr,
+            stck_lwpr : item.stck_lwpr,
+            stck_oprc : item.stck_oprc,
+            stck_clpr : item.stck_clpr 
+        }
+        return aDay;
+    });
+
+    return result.sort((a, b)=>{
+        if(a.date < b.date)return -1;
+        if(a.date > b.date)return 1;
+        return 0;
+    });
 }
 
 
