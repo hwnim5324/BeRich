@@ -24,7 +24,7 @@ const Assets = () : JSX.Element => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [data, setData] = useState<Data>({ deposit: 0, stocks: [] });
 
-    const [Total, setTotal] =useState(0);
+    const [Total, setTotal] = useState(0);
     const [marketValue, setMarketValue] = useState(0);
     const [purchase, setPurchase] = useState(0);
 
@@ -35,17 +35,19 @@ const Assets = () : JSX.Element => {
                 console.log(res);
                 setIsLoaded(true);
                 setData(res.data);
+
+                let temp_MV = calcMarketValue(res.data.stocks);
+                let temp_PC = calcPurchase(res.data.stocks);
+                
+                setMarketValue(temp_MV);
+                setPurchase(temp_PC);
+                setTotal(temp_MV+Number(res.data.deposit));
             }).catch((err)=>{
                 console.log(err);
                 setIsLoaded(true);
             });
         }
     },[]);
-
-    // setPurchase(data.stocks.reduce((sum, item)=>{
-    //     return sum + item.price;
-    // },0));
-    // setTotal(data.deposit + marketValue)
 
     if(!LoginStore.isLogin){ 
         return(
@@ -107,7 +109,7 @@ const Assets = () : JSX.Element => {
                                         <td>{addComma(item.holds)}</td>
                                         <td>{addComma(item.price)}</td>
                                         <td>{addComma(item.nowPrice)}</td>
-                                        <td>{calcYield(item.nowPrice, item.price)}</td>
+                                        <td>{calcYield(item.nowPrice, item.price)}%</td>
                                     </tr>
                                 );
                             })}
@@ -131,6 +133,22 @@ function addComma( num: number ){
 
 function calcYield( nowPrice: number, price: number ){
     return (((nowPrice-price)/price)*100).toFixed(2);
+}
+
+function calcPurchase( stocks: Array<Stocks> ){
+    let sum = 0;
+    stocks.map((i)=>{
+        sum+=(Number(i.price)*Number(i.holds));
+    });
+    return sum;
+}
+
+function calcMarketValue( stocks: Array<Stocks> ){
+    let sum = 0;
+    stocks.map((i)=>{
+        sum+=(Number(i.nowPrice)*Number(i.holds));
+    });
+    return sum;
 }
 
 
