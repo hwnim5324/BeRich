@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { scaleLinear} from "d3-scale";
 
+import Axios from '../../hooks/Axios';
 import useWindowSize from '../../hooks/useWindowSize';
 
 import '../../styles/blocks/Chart.scss';
@@ -22,7 +23,20 @@ exampleData = [
     {date : 20220622, stck_hgpr : 59100, stck_lwpr : 57600, stck_oprc : 59000, stck_clpr : 57600}
 ];
 
+
 const Chart = () : JSX.Element => {
+    
+    useEffect(()=>{
+        Axios.get(`/stocks?isnm=삼성전자&startDate=${getDate(31)}&endDate=${getDate(0)}`)
+        .then((res)=>{
+            console.log(res);
+            // setData(res.data);
+
+        }).catch((err)=>{
+            console.log(err);
+        });
+    },[]);
+
     
     const YLABELSIZE = 30;  //날짜 표기 높이
     const XLABELSIZE = 70;  //가격 표기 넓이
@@ -95,6 +109,20 @@ const Chart = () : JSX.Element => {
             </svg>
         </div>
     );
+}
+
+function getDate( num: number ){
+    let now = new Date();
+    let date = new Date(now.setDate(now.getDate() - num));
+    let year = date.getFullYear();
+    let month = ("0" + (1 + date.getMonth())).slice(-2);
+    let day = ("0" + date.getDate()).slice(-2);
+
+    return year + month + day;
+}
+
+function transformData( data: Array<JSON> ){
+    
 }
 
 
