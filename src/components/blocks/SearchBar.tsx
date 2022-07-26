@@ -10,12 +10,11 @@ const SearchBar = ( ) : JSX.Element => {
 
     const [KeyWord, setKeyWord] = useState('');
     const searchStore = useContext(SearchStore);
-    const { setKeyword, setSearching } = searchStore;
 
     return(
         <div id='SearchBar'>
             <input type='text' id='Keyword' onChange={(e) => {setKeyWord(e.target.value);}} />
-            <button onClick={()=>{setKeyword(KeyWord); setSearching(true);}}>검색</button>
+            <button onClick={()=>{searchStore.setKeyword(KeyWord); searchStore.setSearching(true);}}>검색</button>
         </div>
     );
 }

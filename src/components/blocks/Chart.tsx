@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { scaleLinear} from "d3-scale";
 
 import Axios from '../../hooks/Axios';
+import SearchStore from '../../store/SearchStore';
 import useWindowSize from '../../hooks/useWindowSize';
 
 import '../../styles/blocks/Chart.scss';
@@ -17,13 +18,14 @@ interface chartData {
 };
 
 const Chart = () : JSX.Element => {
-    
-    const now = new Date();
 
+    const searchStore = useContext(SearchStore);
+    
     const [stockName, setStockName] = useState('삼성전자');
-    const [endDate, setEndDate] = useState(getEndDate());
-    const [startDate, setStartDate] = useState(getStartDate(60));
+    const [startDate, setStartDate] = useState(getDate(50));
+    const [endDate, setEndDate] = useState(getDate(0));
     const [Data, setData] = useState<Array<chartData>>([]);
+
     useEffect(()=>{
         Axios.get(`/stocks?isnm=${stockName}&startDate=${startDate}&endDate=${endDate}`)
         .then((res)=>{
@@ -98,7 +100,7 @@ const Chart = () : JSX.Element => {
                                     x = {x}
                                     y={ yAxisLength - SCALEY(MAX) + YLABELSIZE }
                                     width={barPlotWidth - 5} //5 = 막대간 패딩.
-                                    height={ SCALEY(MAX) - SCALEY(MIN)} />
+                                    height={ MAX===MIN? 1 : SCALEY(MAX) - SCALEY(MIN) } />
                             </g>
                         );
                     })
@@ -125,17 +127,10 @@ interface originData{
     
 }
 
-function getStartDate( num: number ){
-    const now = new Date();
-    const date = new Date(now.setDate(now.getDate() - num));
-    const year = date.getFullYear();
-    const month = ("0" + (1 + date.getMonth())).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    return year + month + day;
-}
-
-function getEndDate(){
+function getDate( num: number ){
     const date = new Date();
+    date.setDate(date.getDate() - num);
+
     const year = date.getFullYear();
     const month = ("0" + (1 + date.getMonth())).slice(-2);
     const day = ("0" + date.getDate()).slice(-2);
