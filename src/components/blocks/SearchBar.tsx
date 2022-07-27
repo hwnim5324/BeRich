@@ -14,7 +14,7 @@ const SearchBar = ( ) : JSX.Element => {
     return(
         <div id='SearchBar'>
             <input type='text' id='Keyword' onChange={(e) => {setKeyWord(e.target.value);}} />
-            <button onClick={()=>{searchStore.setKeyword(KeyWord); searchStore.setSearching(true);}}>검색</button>
+            <button onClick={()=>{ searchStore.setKeyword(KeyWord); }}>검색</button>
         </div>
     );
 }
