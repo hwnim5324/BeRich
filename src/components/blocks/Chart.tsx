@@ -38,7 +38,7 @@ const Chart = ( props: Props ) : JSX.Element => {
     const [tooltipVisible, setTooltipVisible] = useState('hidden');
 
     useEffect(()=>{
-        Axios.get(`/stocks?isnm=${stockName}&startDate=${startDate}&endDate=${endDate}`)
+        Axios.get(`/stocks?isnm=${props.stockName}&startDate=${props.startDate}&endDate=${props.endDate}`)
         .then((res)=>{
             console.log(res);
             setData(transformData(res.data));
@@ -69,6 +69,7 @@ const Chart = ( props: Props ) : JSX.Element => {
 
     return(
         <div id='CandleStick'>
+            <span>{props.stockName}</span>
             <svg width={chartWidth} height={chartHeight}>
                 <line id='axis' x1={0} y1={chartHeight-YLABELSIZE} x2={chartWidth-XLABELSIZE} y2={chartHeight-YLABELSIZE} />
                 <line id='axis' x1={chartWidth-XLABELSIZE} y1={YLABELSIZE} x2={chartWidth-XLABELSIZE} y2={chartHeight-YLABELSIZE} />
@@ -116,7 +117,7 @@ const Chart = ( props: Props ) : JSX.Element => {
                         );
                     })
                 }
-                {/* 금액에 따라서 가로길이 변경해야함. */}
+                {/* 금액에 따라서 가로길이 변경해야함. + 우측일땐 좌측으로 좌측일땐 우측으로 지정 */}
                 <rect fill='#1f1f1f' x={tooltipX-6} y={tooltipY-50} width='100' height='150' rx='7' ry='7' visibility={tooltipVisible} />
                 <text x={tooltipX} y={tooltipY} visibility={tooltipVisible}>
                     <tspan fill='#fff' x={tooltipX} y={tooltipY-30}>{addComma(tooltipData.date)}</tspan>
