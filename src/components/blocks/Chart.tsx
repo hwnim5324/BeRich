@@ -8,6 +8,11 @@ import useWindowSize from '../../hooks/useWindowSize';
 import '../../styles/blocks/Chart.scss';
 
 
+interface Props{
+    stockName: string,
+    startDate: string,
+    endDate: string
+}
 
 interface chartData {
     date : number,
@@ -17,14 +22,20 @@ interface chartData {
     stck_clpr : number
 };
 
-const Chart = () : JSX.Element => {
+const Chart = ( props: Props ) : JSX.Element => {
 
     const searchStore = useContext(SearchStore);
+    const { keyword } = searchStore;
     
-    const [stockName, setStockName] = useState('삼성전자');
+    const [stockName, setStockName] = useState(keyword);
     const [startDate, setStartDate] = useState(getDate(50));
     const [endDate, setEndDate] = useState(getDate(0));
     const [Data, setData] = useState<Array<chartData>>([]);
+
+    const [tooltipData, setTooltipData] = useState<chartData>({date:0,stck_hgpr:0,stck_lwpr:0,stck_oprc:0,stck_clpr:0});
+    const [tooltipX, setTooltipX] = useState(0);
+    const [tooltipY, setTooltipY] = useState(0);
+    const [tooltipVisible, setTooltipVisible] = useState('hidden');
 
     useEffect(()=>{
         Axios.get(`/stocks?isnm=${stockName}&startDate=${startDate}&endDate=${endDate}`)
@@ -34,7 +45,7 @@ const Chart = () : JSX.Element => {
         }).catch((err)=>{
             console.log(err);
         });
-    },[]);
+    },[keyword]);
 
     
     const YLABELSIZE = 30;  //날짜 표기 높이
@@ -89,7 +100,7 @@ const Chart = () : JSX.Element => {
                         const FILL = d.stck_clpr > d.stck_oprc ? "#E0585A" : "#597BE4";
 
                         return (
-                            <g id='data' key={ index }>
+                            <g id='data' key={ index } onMouseOver={(e)=>{setTooltipData(d); setTooltipX(e.clientX-30); setTooltipY(e.clientY-200); setTooltipVisible('visible');}} onMouseMove={(e)=>{setTooltipX(e.clientX-30); setTooltipY(e.clientY-200);}} onMouseOut={()=>{setTooltipVisible('hidden');}}>
                                 <line
                                     x1={x + ((barPlotWidth-5)/2)}
                                     y1={yAxisLength - SCALEY(d.stck_lwpr) + YLABELSIZE}
@@ -105,6 +116,15 @@ const Chart = () : JSX.Element => {
                         );
                     })
                 }
+                {/* 금액에 따라서 가로길이 변경해야함. */}
+                <rect fill='#1f1f1f' x={tooltipX-6} y={tooltipY-50} width='100' height='150' rx='7' ry='7' visibility={tooltipVisible} />
+                <text x={tooltipX} y={tooltipY} visibility={tooltipVisible}>
+                    <tspan fill='#fff' x={tooltipX} y={tooltipY-30}>{addComma(tooltipData.date)}</tspan>
+                    <tspan fill='#fff' x={tooltipX} y={tooltipY}>시가 : {addComma(tooltipData.stck_oprc)}</tspan>
+                    <tspan fill='#fff' x={tooltipX} y={tooltipY+30}>고가 : {addComma(tooltipData.stck_hgpr)}</tspan>
+                    <tspan fill='#fff' x={tooltipX} y={tooltipY+60}>저가 : {addComma(tooltipData.stck_lwpr)}</tspan>
+                    <tspan fill='#fff' x={tooltipX} y={tooltipY+90}>종가 : {addComma(tooltipData.stck_clpr)}</tspan>
+                </text>
             </svg>
         </div>
     );
@@ -135,6 +155,10 @@ function getDate( num: number ){
     const month = ("0" + (1 + date.getMonth())).slice(-2);
     const day = ("0" + date.getDate()).slice(-2);
     return year + month + day;
+}
+
+function addComma( num: number ){
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 function transformData( data: Array<originData> ){
