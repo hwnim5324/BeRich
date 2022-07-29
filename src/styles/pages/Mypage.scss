@@ -1,0 +1,92 @@
+#Mypage{
+    padding-top: 80px;
+    padding-left: 100px;
+
+    #password-input{
+        label{
+            font-size: 18px;
+            display: block;
+        }
+
+        input{
+            width: 360px;
+            height: 40px;
+
+            font-size: 18px;
+            padding-left: 12px;
+            margin: 20px 0 20px 0;
+
+            border: none;
+            border-bottom: 2px solid black;
+
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    #btn{     
+        &-change{
+            display: block;
+
+            font-size: 18px;
+            font-weight: bold;
+    
+            width: 340px;
+            height: 64px;
+            
+            margin: 40px 0 40px 0;
+
+            background-color: black;
+            color: white;
+            border: 0;
+
+            &:hover{
+                cursor: pointer;
+                background-color: #444444;
+            }
+        }
+        
+        &-logout{
+            display: block;
+
+            font-size: 18px;
+            font-weight: bold;
+    
+            width: 340px;
+            height: 64px;
+            
+            margin: 40px 0 40px 0;
+
+            background-color: black;
+            color: white;
+            border: 0;
+
+            &:hover{
+                cursor: pointer;
+                background-color: #444444;
+            }
+        }
+
+        &-quit{
+            display: block;
+
+            font-size: 18px;
+            font-weight: bold;
+    
+            width: 340px;
+            height: 64px;
+            
+            margin: 120px 0 40px 0;
+
+            background-color: #E0585A;
+            color: white;
+            border: 0;
+
+            &:hover{
+                cursor: pointer;
+                background-color: #db4345;
+            }
+        }
+    }
+}
