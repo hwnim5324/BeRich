@@ -19,9 +19,20 @@ const Watching = () :JSX.Element => {
         return (
             <section id="watching">
                 관심목록
+                <WatchingList />
             </section>
         );
     }
+}
+
+const WatchingList = () : JSX.Element => {
+    return(
+        <div id="list">
+            <p id="graph">작은 그래프</p>
+            <p id="name">이름</p>
+            <p id="figure">등락수치</p>
+        </div>
+    );
 }
 
 export default Watching;
