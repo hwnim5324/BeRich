@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import LogInStore from "../../store/LogInStore";
 
+import '../../styles/pages/Watching.scss';
+
 const Watching = () :JSX.Element => {
 
     const LoginStore = useContext(LogInStore);
@@ -15,8 +17,8 @@ const Watching = () :JSX.Element => {
         );
     }else{
         return (
-            <section>
-
+            <section id="watching">
+                관심목록
             </section>
         );
     }
