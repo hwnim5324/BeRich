@@ -1,15 +1,42 @@
 #main{
+    padding: 40px 10% 100px 10%;
+
     #banner{
+        height: 300px;
         background-color: greenyellow;
     }
-    #rank{
-        background-color: skyblue;
+
+    article{
+        display: flex;
+        justify-content: space-between;
+        margin: 70px 0 0 0;
+
+        #left-side{
+            width: 22%;
+            #rank{
+                background-color: skyblue;
+                height: 300px;
+            }
+        }
+        #center{
+            width: 45%;
+            height: 100%;
+        }
+    
+        #right-side{
+            width: 22%;
+            #notice{
+                background-color: burlywood;
+                height: 300px;
+                margin-bottom: 40px;
+            }
+            #board{
+                background-color: darkcyan;
+                height: 300px;
+            }
+        }
     }
-    #notice{
-        background-color: burlywood;
-    }
-    #board{
-        background-color: darkcyan;
-    }
+
+    
 
 }
