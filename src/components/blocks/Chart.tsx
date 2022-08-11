@@ -120,7 +120,7 @@ const Chart = ( props: Props ) : JSX.Element => {
                 {/* 금액에 따라서 가로길이 변경해야함. + 우측일땐 좌측으로 좌측일땐 우측으로 지정 */}
                 <rect fill='#1f1f1f' x={tooltipX-6} y={tooltipY-50} width='100' height='150' rx='7' ry='7' visibility={tooltipVisible} />
                 <text x={tooltipX} y={tooltipY} visibility={tooltipVisible}>
-                    <tspan fill='#fff' x={tooltipX} y={tooltipY-30}>{addComma(tooltipData.date)}</tspan>
+                    <tspan fill='#fff' x={tooltipX} y={tooltipY-30}>{tooltipData.date}</tspan>
                     <tspan fill='#fff' x={tooltipX} y={tooltipY}>시가 : {addComma(tooltipData.stck_oprc)}</tspan>
                     <tspan fill='#fff' x={tooltipX} y={tooltipY+30}>고가 : {addComma(tooltipData.stck_hgpr)}</tspan>
                     <tspan fill='#fff' x={tooltipX} y={tooltipY+60}>저가 : {addComma(tooltipData.stck_lwpr)}</tspan>
