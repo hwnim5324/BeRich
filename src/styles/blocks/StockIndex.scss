@@ -9,4 +9,19 @@
 
     font-size: 16px;
     background-color: #fff;
+
+    ul{
+        list-style: none;
+        text-decoration: none;
+        
+        li{
+            float: left;
+            margin: 0 50px 0 50px;
+
+            &:first-child{
+                margin: 0 50px 0 0;
+            }
+        }
+    }
+
 }
