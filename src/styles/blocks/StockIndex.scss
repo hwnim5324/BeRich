@@ -21,6 +21,20 @@
             &:first-child{
                 margin: 0 50px 0 0;
             }
+
+            span{
+                margin: 0 0 0 16px;
+                &#increase{
+                    font-size: 14px;
+                    margin: 0 0 0 4px;
+                    color: #E0585A;
+                }
+                &#decrease{
+                    font-size: 14px;
+                    margin: 0 0 0 4px;
+                    color: #597BE4;
+                }
+            }
         }
     }
 
