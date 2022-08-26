@@ -28,8 +28,8 @@ const StockIndex = () : JSX.Element => {
     return (
         <div id='StockIndex'>
             <ul>
-                <li>코스피 <span>{kospi.BSTP_NMIX_PRPR} <span id={(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)>0 ? 'decrease' : 'increase'}>{(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {(Math.abs(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)).toFixed(2)} {(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {kospi.BSTP_NMIX_PRDY_CTRT}</span></span></li>
-                <li>코스닥 <span>{kosdaq.BSTP_NMIX_PRPR} <span id={(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)>0 ? 'decrease' : 'increase'}>{(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {(Math.abs(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)).toFixed(2)} {(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {kosdaq.BSTP_NMIX_PRDY_CTRT}</span></span></li>
+                <li>코스피 <span>{kospi.BSTP_NMIX_PRPR} <span id={(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)>0 ? 'decrease' : 'increase'}>{(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {(Math.abs(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)).toFixed(2)} {(kospi.PRDY_NMIX-kospi.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {Math.abs(kospi.BSTP_NMIX_PRDY_CTRT)}</span></span></li>
+                <li>코스닥 <span>{kosdaq.BSTP_NMIX_PRPR} <span id={(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)>0 ? 'decrease' : 'increase'}>{(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {(Math.abs(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)).toFixed(2)} {(kosdaq.PRDY_NMIX-kosdaq.BSTP_NMIX_PRPR)>0 ? '▼' : '▲'} {Math.abs(kosdaq.BSTP_NMIX_PRDY_CTRT)}</span></span></li>
             </ul>
         </div>
     );

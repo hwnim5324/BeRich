@@ -3,7 +3,10 @@
 
     #banner{
         height: 300px;
-        background-color: greenyellow;
+        
+        border: 0.05px solid #d7e2eb;
+        border-radius: 1rem;
+        padding: 2rem 1.5rem 2.5rem 3rem;
     }
 
     article{
@@ -14,25 +17,38 @@
         #left-side{
             width: 22%;
             #rank{
-                background-color: skyblue;
                 height: 300px;
+
+                border: 0.05px solid #d7e2eb;
+                padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+                border-radius: 1rem;
             }
         }
         #center{
             width: 45%;
             height: 100%;
+
+            border: 0.05px solid #d7e2eb;
+            padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+            border-radius: 1rem;
         }
     
         #right-side{
             width: 22%;
             #notice{
-                background-color: burlywood;
                 height: 300px;
                 margin-bottom: 40px;
+
+                border: 0.05px solid #d7e2eb;
+                padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+                border-radius: 1rem;
             }
             #board{
-                background-color: darkcyan;
                 height: 300px;
+
+                border: 0.05px solid #d7e2eb;
+                padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+                border-radius: 1rem;
             }
         }
     }
