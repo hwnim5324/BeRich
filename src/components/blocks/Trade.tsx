@@ -85,7 +85,6 @@ const Buy = () : JSX.Element => {
 
 const Sell = () : JSX.Element => {
 
-    const LoginStore = useContext(LogInStore);
     const [orderType,setOrderType] = useState('market');
     const [holds, setHolds] = useState(0);
     const [price,setPrice] = useState(0);
@@ -94,7 +93,7 @@ const Sell = () : JSX.Element => {
     const divHeight = useWindowSize().height-153-130;
     const divWidth = useWindowSize().width*0.3
 
-    return LoginStore.isLogin?(
+    return (
         <div id='sell' style={{height: divHeight}}>
             <div style={{width: divWidth}} id='ordertype'>
                 <button id={orderType==='market'?'clicked':'unclicked'} onClick={()=>{setOrderType('market');}}>지정가</button>
@@ -110,11 +109,6 @@ const Sell = () : JSX.Element => {
                 <button id='blue'>현금매도</button>
             </div>
         </div>
-    ):(
-        <>
-            {alert("로그인 후 이용해주세요.")}
-            {document.location.href='/login'}
-        </>
     );
 }
 

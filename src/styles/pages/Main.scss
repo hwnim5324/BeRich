@@ -4,9 +4,14 @@
     #banner{
         height: 300px;
         
-        border: 0.05px solid #d7e2eb;
+        border: 1px solid #d7e2eb;
         border-radius: 1rem;
         padding: 2rem 1.5rem 2.5rem 3rem;
+    }
+
+    #blockTitle{
+        font-size: 18px;
+        font-weight: 600;
     }
 
     article{
@@ -31,6 +36,36 @@
             border: 0.05px solid #d7e2eb;
             padding: 1.5rem 1.5rem 1.5rem 1.5rem;
             border-radius: 1rem;
+
+            #newsList{
+                text-decoration: none;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                a{
+                    text-decoration: none;
+                    color: black;
+                }
+
+                #news{
+                    margin: 30px 0 20px 0; 
+
+                    p{
+                        margin: 0;
+                    }
+
+                    #title{
+                        font-weight: 600;
+                    }
+
+                    #dateSource{
+                        text-align: right;
+                        font-size: 14px;
+                        color: gray;
+                    }
+                }
+            }
         }
     
         #right-side{
